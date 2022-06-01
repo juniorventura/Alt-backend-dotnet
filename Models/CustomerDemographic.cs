@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace backend_dotnet
+namespace backend_dotnet.Models
 {
     public partial class CustomerDemographic
     {
