@@ -1,5 +1,9 @@
 using backend_dotnet;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http.Json;
+using AutoMapper;
+
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,8 +14,19 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.Configure<JsonOptions>(op => op.SerializerOptions.Converters.Add(new DateOnlyConverter()));
+
 builder.Services.AddTransient<IEmployeeRepository, EmployeeRepository>();
 builder.Services.AddTransient<IEmployeeService, EmployeeService>();
+
+var config = new MapperConfiguration(cfg =>
+{
+    cfg.AddProfile(new AutoMapperProfile());
+});
+
+var mapper = config.CreateMapper();
+
+builder.Services.AddSingleton(mapper);
 
 // Adding DbContext
 

@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using backend_dotnet.Models;
+using backend_dotnet.Dtos;
 
 namespace backend_dotnet.Controllers;
 
@@ -20,5 +21,65 @@ public class EmployeeController : ControllerBase
     {
         var results = await _employeeService.GetAllAsync();
         return results;
+    }
+
+    [HttpGet, Route("Employees/{id}")]
+    public async Task<ActionResult<EmployeeDto>> Get(short id)
+    {
+      try {
+        var result = await _employeeService.GetByIdAsync(id);
+        return Ok(result);
+      }
+      catch (InvalidOperationException ex) {
+        return BadRequest(ex.Message);
+      }
+      catch (Exception ex) {
+         return BadRequest(ex.Message);
+      }
+    }
+
+     [HttpPost, Route("Employee")]
+    public async Task<ActionResult<EmployeeDto>> Create([FromBody] EmployeeDto employeeDto)
+    {
+      try {
+        var result = await _employeeService.CreateAsync(employeeDto);
+        return Ok(result);
+      }
+      catch (InvalidOperationException ex) {
+        return BadRequest(ex.Message);
+      }
+      catch (Exception ex) {
+         return BadRequest(ex.Message);
+      }
+    }
+
+    [HttpPut, Route("Employee")]
+    public async Task<ActionResult<EmployeeDto>> Edit([FromBody] EmployeeDto employeeDto)
+    {
+      try {
+        var result = await _employeeService.EditAsync(employeeDto);
+        return Ok(result);
+      }
+      catch (InvalidOperationException ex) {
+        return BadRequest(ex.Message);
+      }
+      catch (Exception ex) {
+         return BadRequest(ex.Message);
+      }
+    }
+
+    [HttpDelete, Route("Employee/{id}")]
+    public async Task<ActionResult<EmployeeDto>> Edit(short id)
+    {
+      try {
+        var result = await _employeeService.DeleteAsync(id);
+        return Ok(result);
+      }
+      catch (InvalidOperationException ex) {
+        return BadRequest(ex.Message);
+      }
+      catch (Exception ex) {
+         return BadRequest(ex.Message);
+      }
     }
 }

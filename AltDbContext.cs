@@ -30,7 +30,7 @@ namespace backend_dotnet
         public virtual DbSet<Supplier> Suppliers { get; set; } = null!;
         public virtual DbSet<Territory> Territories { get; set; } = null!;
         public virtual DbSet<UsState> UsStates { get; set; } = null!;
-
+        /*
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -39,7 +39,7 @@ namespace backend_dotnet
                 optionsBuilder.UseNpgsql("Host=localhost;Database=AltDb;Username=postgres;Password=example");
             }
         }
-
+        */
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Category>(entity =>
